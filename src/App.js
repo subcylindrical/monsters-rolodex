@@ -1,12 +1,15 @@
 import { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import CardList from './components/card-list/card-list.component';
+import SearchBox from './components/search-box/search-box.component';
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
       monsters: [],
+      searchField: '',
     };
     console.log('constructor');
   }
@@ -19,25 +22,36 @@ class App extends Component {
           () => {
             return { monsters: users };
           },
-          () => {
-            console.log(this.state.monsters);
-          }
+          () => {}
         );
       });
     console.log('mount');
   }
 
+  onSearchChange = (e) => {
+    const searchField = e.target.value.toUpperCase();
+    this.setState(() => {
+      return { searchField };
+    });
+  };
+
   render() {
-    console.log('render');
+    // console.log('render from app.js');
+    const { monsters, searchField } = this.state;
+    const { onSearchChange } = this;
+
+    const monsterSearch = monsters.filter((monster) => {
+      return monster.name.toUpperCase().includes(searchField);
+    });
+
     return (
       <div className='App'>
-        {this.state.monsters.map((monster) => {
-          return (
-            <h1 class='chicken' key={monster.id}>
-              {monster.name}
-            </h1>
-          );
-        })}
+        <SearchBox
+          onChangeHandler={onSearchChange}
+          placeholder='search monster'
+          className='monsters-search-box'
+        ></SearchBox>
+        <CardList monsters={monsterSearch} />
       </div>
     );
   }

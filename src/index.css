@@ -10,17 +10,4 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
-  font-weight: 200;
-}
-
-div {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-
-.chicken {
-  font-style: italic;
-  outline: 1px solid black;
-  margin: 2rem;
 }
